@@ -1,0 +1,11 @@
+{
+  "name": "Chakrahasya",
+  "short_name": "Chakrahasya",
+  "description": "Vedic moon sign and nakshatra for any date from 1900 to 2100.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10142a",
+  "theme_color": "#10142a",
+  "icons": [{"src": "icon.png", "sizes": "512x512", "type": "image/png"}]
+}
