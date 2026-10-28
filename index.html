@@ -9,8 +9,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Chakrahasya">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#eef1f6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#10142a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F9D648" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#F9D648" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="icon" href="icon.png">
 <link rel="manifest" href="manifest.json">
@@ -21,17 +21,17 @@ html{color-scheme:light}
 
 /* Layout: one narrow almanac column — date entry, the answer large, a sky ring, then the day's detail */
 :root{
-  --bg:#eef1f6; --surface:#ffffff; --ink:#1c2340; --muted:#5f6787; --line:#d6dbe7;
-  --accent:#b8580f; --moon:#c7cfe2; --moon-glow:#7d8ab8; --soft:#e4e8f2;
+  --bg:#F9D648; --surface:#FFF3BF; --ink:#13204A; --muted:#3A4878; --line:#C9962B;
+  --accent:#1B2C66; --moon:#FFF8DC; --moon-glow:#B8860B; --soft:#FCE689;
   --display:"Tiro Devanagari Sanskrit", "Noto Serif Devanagari", Georgia, serif;
   --body:"Hind", "Noto Sans Devanagari", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#10142a; --surface:#181d38; --ink:#e7eaf5; --muted:#99a1c2; --line:#2b3157;
-  --accent:#f0a24a; --moon:#eef0f8; --moon-glow:#aab4e0; --soft:#20264a; color-scheme:dark}}
+  --bg:#F9D648; --surface:#FFF3BF; --ink:#13204A; --muted:#3A4878; --line:#C9962B;
+  --accent:#1B2C66; --moon:#FFF8DC; --moon-glow:#B8860B; --soft:#FCE689; color-scheme:light}}
 :root[data-theme="dark"]{
-  --bg:#10142a; --surface:#181d38; --ink:#e7eaf5; --muted:#99a1c2; --line:#2b3157;
-  --accent:#f0a24a; --moon:#eef0f8; --moon-glow:#aab4e0; --soft:#20264a; color-scheme:dark}
+  --bg:#F9D648; --surface:#FFF3BF; --ink:#13204A; --muted:#3A4878; --line:#C9962B;
+  --accent:#1B2C66; --moon:#FFF8DC; --moon-glow:#B8860B; --soft:#FCE689; color-scheme:light}
 
 *{box-sizing:border-box}
 body{margin:0;-webkit-text-size-adjust:100%;padding-top:env(safe-area-inset-top,0px);background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
@@ -71,6 +71,11 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 
 dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:15px}
 dt{color:var(--muted)}dd{margin:0;font-variant-numeric:tabular-nums;min-width:0}
+
+/* Answer card in navy, lettered in yellow and gold */
+.answer{--surface:#15224E; --ink:#FFF3BF; --muted:#E2BE5C; --line:#C9962B; --accent:#F9D648;
+  --soft:#1F2F63; --moon:#FFF3BF; --moon-glow:#E0A92E;
+  color:var(--ink); border:1.5px solid var(--line); box-shadow:0 6px 18px rgba(19,32,74,.25)}
 
 .foot{font-size:13px;color:var(--muted);line-height:1.55}
 </style>
