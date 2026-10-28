@@ -1,8 +1,8 @@
 // Chakrahasya offline support.
 // Online: always load the newest version from GitHub and refresh the saved copy.
 // Offline: use the saved copy.
-const CACHE = "chakrahasya-v5";
-const FILES = ["./", "index.html", "manifest.json", "icon.png", "cities.json"];
+const CACHE = "chakrahasya-v6";
+const FILES = ["./", "index.html", "manifest.json", "icon.png", "cities.json", "astronomy.min.js"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c =>
