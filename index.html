@@ -196,6 +196,7 @@ dt{color:var(--muted)}dd{margin:0;font-variant-numeric:tabular-nums;min-width:0}
 .code-row .op{font:700 34px/1 var(--body);color:var(--muted)}
 .code-row .code{font-size:clamp(30px,10vw,40px)}
 .code-row .en{text-align:right}
+.abbr{font:600 22px var(--body);letter-spacing:.06em;color:var(--ink)}
 
 .foot{font-size:13px;color:var(--muted);line-height:1.55}
 </style>
@@ -277,6 +278,7 @@ let DB=null; // {sign:[ms...], signStart, nak:[ms...], nakStart}
 
 function decode(arr){const ep=Date.UTC(1899,11,31);let s=0;return arr.map(d=>{s+=d;return ep+s*1000;});}
 function upper(a,t){let lo=0,hi=a.length;while(lo<hi){const m=(lo+hi)>>1;if(a[m]<=t)lo=m+1;else hi=m;}return lo;} // count of entries <= t
+const ab=i=>RASHI[i][2][0]+"/"+RASHI[i][1][0]; // Aries/Mesha → A/M
 function signAt(t){return (DB.signStart+upper(DB.sign,t))%12;}
 function nakAt(t){return (DB.nakStart+upper(DB.nak,t))%27;}
 function approxLon(t){ // position inside the sign, interpolated between its entry and exit (for the ring only)
@@ -323,13 +325,13 @@ function render(){
   let html="";
   if(si!=null){
     const s=RASHI[si],t=birth!=null?birth:r.start+43200000;
-    html+=`<div class="hero">${ring(approxLon(t),si)}<div class="signname"><span class="lbl-code">Moon sign</span><span class="code" aria-label="Sign ${si+1}, ${s[1]}">${si+1}</span><span class="en">${s[1]} · ${s[2]}</span></div></div>`;
+    html+=`<div class="hero">${ring(approxLon(t),si)}<div class="signname"><span class="lbl-code">Moon sign</span><span class="code" aria-label="Sign ${si+1}, ${s[1]}">${si+1}</span><span class="en abbr">${ab(si)}</span></div></div>`;
     if(r.change)html+=`<div class="notice">The Moon moved from ${RASHI[r.s0][1]} into ${RASHI[r.s1][1]} at <strong>${fmtTime(r.change,tzMin,true)}</strong> on this day; the birth time falls ${birth<r.change?"before":"after"} it.</div>`;
   }else{
     const hm=fmtTime(r.change,tzMin);
     html+=`<div class="codes"><span class="lbl-code">Moon sign · changes during the day</span>
-      <div class="code-row" aria-label="Born before ${hm}: sign ${r.s0+1}, ${RASHI[r.s0][1]}"><span class="op">&lt;</span><span class="code">${hm}.${r.s0+1}</span><span class="en">${RASHI[r.s0][1]}</span></div>
-      <div class="code-row" aria-label="Born at ${hm} or later: sign ${r.s1+1}, ${RASHI[r.s1][1]}"><span class="op">&gt;</span><span class="code">${hm}.${r.s1+1}</span><span class="en">${RASHI[r.s1][1]}</span></div>
+      <div class="code-row" aria-label="Born before ${hm}: sign ${r.s0+1}, ${RASHI[r.s0][1]}"><span class="op">&lt;</span><span class="code">${hm}.${r.s0+1}</span><span class="en abbr">${ab(r.s0)}</span></div>
+      <div class="code-row" aria-label="Born at ${hm} or later: sign ${r.s1+1}, ${RASHI[r.s1][1]}"><span class="op">&gt;</span><span class="code">${hm}.${r.s1+1}</span><span class="en abbr">${ab(r.s1)}</span></div>
       <span class="en">Changeover at ${fmtTime(r.change,tzMin,true)}. Add a birth time for one answer.</span></div>`;
   }
   html+=`<dl>`;
