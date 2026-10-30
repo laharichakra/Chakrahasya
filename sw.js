@@ -1,7 +1,7 @@
 // Chakrahasya offline support.
 // Online: always load the newest version from GitHub and refresh the saved copy.
 // Offline: use the saved copy.
-const CACHE = "chakrahasya-v10";
+const CACHE = "chakrahasya-v11";
 const FILES = ["./", "index.html", "manifest.json", "icon.png", "apple-touch-icon-180.png", "icon-192.png", "cities.json", "astronomy.min.js"];
 
 self.addEventListener("install", e => {
