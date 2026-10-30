@@ -188,6 +188,15 @@ dt{color:var(--muted)}dd{margin:0;font-variant-numeric:tabular-nums;min-width:0}
 .calc.mini.folded .lcd::after{content:"TAP TO CHANGE"}
 .kdate-wrap{display:grid;gap:4px}
 
+/* Number-coded results (Mesha = 1 … Meena = 12) */
+.lbl-code{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.code{font:italic 700 64px/1.05 "DSEG7",ui-monospace,monospace;color:var(--accent);letter-spacing:.02em}
+.codes{display:grid;gap:10px}
+.code-row{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:10px;background:var(--soft);border-radius:12px;padding:10px 14px}
+.code-row .op{font:700 34px/1 var(--body);color:var(--muted)}
+.code-row .code{font-size:clamp(30px,10vw,40px)}
+.code-row .en{text-align:right}
+
 .foot{font-size:13px;color:var(--muted);line-height:1.55}
 </style>
 </head>
@@ -314,11 +323,14 @@ function render(){
   let html="";
   if(si!=null){
     const s=RASHI[si],t=birth!=null?birth:r.start+43200000;
-    html+=`<div class="hero">${ring(approxLon(t),si)}<div class="signname"><span class="dev" lang="sa">${s[0]}</span><span class="sk">${s[1]}</span><span class="en">${s[2]} · ruled by ${s[3]}</span></div></div>`;
+    html+=`<div class="hero">${ring(approxLon(t),si)}<div class="signname"><span class="lbl-code">Moon sign</span><span class="code" aria-label="Sign ${si+1}, ${s[1]}">${si+1}</span><span class="en">${s[1]} · ${s[2]}</span></div></div>`;
     if(r.change)html+=`<div class="notice">The Moon moved from ${RASHI[r.s0][1]} into ${RASHI[r.s1][1]} at <strong>${fmtTime(r.change,tzMin,true)}</strong> on this day; the birth time falls ${birth<r.change?"before":"after"} it.</div>`;
   }else{
-    html+=`<div class="hero">${ring(approxLon(r.change),r.s1)}<div class="signname"><span class="sk">Two possible signs</span><span class="en">The Moon changed sign at ${fmtTime(r.change,tzMin,true)}. Add a birth time to choose.</span></div></div>`;
-    html+=`<div class="split"><div class="row"><b>${RASHI[r.s0][1]} <span lang="sa">${RASHI[r.s0][0]}</span></b><span>born before ${fmtTime(r.change,tzMin)}</span></div><div class="row"><b>${RASHI[r.s1][1]} <span lang="sa">${RASHI[r.s1][0]}</span></b><span>born at ${fmtTime(r.change,tzMin)} or later</span></div></div>`;
+    const hm=fmtTime(r.change,tzMin);
+    html+=`<div class="codes"><span class="lbl-code">Moon sign · changes during the day</span>
+      <div class="code-row" aria-label="Born before ${hm}: sign ${r.s0+1}, ${RASHI[r.s0][1]}"><span class="op">&lt;</span><span class="code">${hm}.${r.s0+1}</span><span class="en">${RASHI[r.s0][1]}</span></div>
+      <div class="code-row" aria-label="Born at ${hm} or later: sign ${r.s1+1}, ${RASHI[r.s1][1]}"><span class="op">&gt;</span><span class="code">${hm}.${r.s1+1}</span><span class="en">${RASHI[r.s1][1]}</span></div>
+      <span class="en">Changeover at ${fmtTime(r.change,tzMin,true)}. Add a birth time for one answer.</span></div>`;
   }
   html+=`<dl>`;
   if(birth!=null)html+=`<dt>Nakshatra</dt><dd>${NAK[nakAt(birth)]}</dd>`;
